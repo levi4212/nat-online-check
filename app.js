@@ -36,14 +36,24 @@ renderStunList();
 
 if (consentBanner && consentAccept && consentRead) {
   const consentKey = "natlab-consent-ack";
-  const acknowledged = localStorage.getItem(consentKey);
+  let acknowledged = null;
+  try {
+    acknowledged = localStorage.getItem(consentKey);
+  } catch (error) {
+    console.warn("localStorage unavailable:", error);
+  }
   if (!acknowledged) {
     consentBanner.hidden = false;
   }
 
   consentAccept.addEventListener("click", () => {
-    localStorage.setItem(consentKey, "1");
+    try {
+      localStorage.setItem(consentKey, "1");
+    } catch (error) {
+      console.warn("localStorage unavailable:", error);
+    }
     consentBanner.hidden = true;
+    consentBanner.style.display = "none";
   });
 
   consentRead.addEventListener("click", () => {
