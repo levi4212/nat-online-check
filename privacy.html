@@ -43,7 +43,7 @@
     <p>当前页面不主动设置 Cookies。如启用广告或分析，将按照相关法规提供同意机制。</p>
 
     <h2>5. 联系方式</h2>
-    <p>如有隐私相关问题，请通过联系页面与我们沟通。</p>
+    <p>如有隐私相关问题，请通过联系页面与我们沟通，或发送邮件至 <span id="privacyEmail">support@example.com</span>。</p>
 
     <p class="legal-update">最后更新：2026-03-16</p>
   </main>
@@ -55,5 +55,13 @@
     <span>·</span>
     <a href="contact.html">联系</a>
   </footer>
+
+  <script src="config.js"></script>
+  <script>
+    const config = window.NATLAB_CONFIG || {};
+    if (config.contactEmail) {
+      document.getElementById("privacyEmail").textContent = config.contactEmail;
+    }
+  </script>
 </body>
 </html>
