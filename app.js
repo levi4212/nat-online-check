@@ -57,12 +57,21 @@ if (consentBanner && consentAccept && consentRead) {
   });
 
   consentRead.addEventListener("click", () => {
-    window.location.href = "privacy.html";
+    const lang = window.NATLAB_I18N?.lang;
+    const url = new URL("privacy.html", window.location.origin);
+    if (lang) {
+      url.searchParams.set("lang", lang);
+    }
+    window.location.href = url.toString();
   });
 }
 
 function setStatus(text) {
   statusHint.textContent = text;
+}
+
+function t(key, fallback) {
+  return window.NATLAB_I18N?.t ? window.NATLAB_I18N.t(key, fallback) : fallback || key;
 }
 
 function resetUI() {
@@ -72,8 +81,11 @@ function resetUI() {
   localIpEl.textContent = "-";
   ipv6StateEl.textContent = "-";
   durationEl.textContent = "-";
-  mappingList.innerHTML = "<li>等待检测…</li>";
-  precisionNote.textContent = "结果为浏览器可见范围，部分类型可能无法完全区分。";
+  mappingList.innerHTML = `<li>${t("details.waiting", "等待检测…")}</li>`;
+  precisionNote.textContent = t(
+    "summary.note",
+    "结果为浏览器可见范围，部分类型可能无法完全区分。"
+  );
   copyBtn.disabled = true;
 }
 
@@ -139,15 +151,15 @@ function summarizeMappings(srflxCandidates) {
 function analyzeNat(srflxCandidates, hostCandidates) {
   if (!srflxCandidates.length && hostCandidates.some((c) => !isPrivateIp(c.ip))) {
     return {
-      type: "Open Internet (无 NAT)",
-      note: "检测到公网 Host 地址，未发现 STUN 映射。",
+      type: t("nat.open", "Open Internet (无 NAT)"),
+      note: t("nat.note.open", "检测到公网 Host 地址，未发现 STUN 映射。"),
     };
   }
 
   if (!srflxCandidates.length) {
     return {
-      type: "未知 / UDP 受限",
-      note: "未获取到 STUN 映射，可能 UDP 被阻断或浏览器限制。",
+      type: t("nat.unknown", "未知 / UDP 受限"),
+      note: t("nat.note.unknown", "未获取到 STUN 映射，可能 UDP 被阻断或浏览器限制。"),
     };
   }
 
@@ -165,25 +177,25 @@ function analyzeNat(srflxCandidates, hostCandidates) {
 
   if (symmetric) {
     return {
-      type: "NAT4 · Symmetric",
-      note: "不同 STUN 服务器返回不同映射端口。",
+      type: t("nat.symmetric", "NAT4 · Symmetric"),
+      note: t("nat.note.symmetric", "不同 STUN 服务器返回不同映射端口。"),
     };
   }
 
   return {
-    type: "Cone NAT (NAT2 / NAT3)",
-    note: "纯浏览器无法稳定区分 NAT2 与 NAT3。",
+    type: t("nat.cone", "Cone NAT (NAT2 / NAT3)"),
+    note: t("nat.note.cone", "纯浏览器无法稳定区分 NAT2 与 NAT3。"),
   };
 }
 
 function formatResults({ natType, publicIp, publicPort, localIp, ipv6State, duration }) {
   return [
-    `NAT 类型: ${natType}`,
-    `公网 IP: ${publicIp || "-"}`,
-    `公网端口: ${publicPort || "-"}`,
-    `内网 IP: ${localIp || "-"}`,
-    `IPv6: ${ipv6State}`,
-    `耗时: ${duration}`,
+    `${t("result.nat_type", "NAT 类型")}: ${natType}`,
+    `${t("result.public_ip", "公网 IP")}: ${publicIp || "-"}`,
+    `${t("result.public_port", "公网端口")}: ${publicPort || "-"}`,
+    `${t("result.local_ip", "内网 IP")}: ${localIp || "-"}`,
+    `${t("result.ipv6", "IPv6")}: ${ipv6State}`,
+    `${t("result.duration", "耗时")}: ${duration}`,
   ].join("\n");
 }
 
@@ -191,7 +203,7 @@ async function runTest() {
   resetUI();
   startBtn.disabled = true;
   retestBtn.disabled = true;
-  setStatus("检测中… 约 3-6 秒");
+  setStatus(t("status.testing", "检测中… 约 3-6 秒"));
 
   const startTime = performance.now();
   const srflxCandidates = [];
@@ -243,7 +255,9 @@ async function runTest() {
   publicIpEl.textContent = primary ? primary.ip : "-";
   publicPortEl.textContent = primary ? primary.port : "-";
   localIpEl.textContent = primary ? `${primary.raddr || "-"}:${primary.rport || "-"}` : "-";
-  ipv6StateEl.textContent = ipv6Detected ? "检测到 IPv6" : "未检测到";
+  ipv6StateEl.textContent = ipv6Detected
+    ? t("ipv6.detected", "检测到 IPv6")
+    : t("ipv6.not_detected", "未检测到");
 
   const duration = ((performance.now() - startTime) / 1000).toFixed(1);
   durationEl.textContent = `${duration}s`;
@@ -253,7 +267,7 @@ async function runTest() {
   mappingList.innerHTML = "";
   if (mappingLines.length === 0) {
     const li = document.createElement("li");
-    li.textContent = "暂无映射记录";
+    li.textContent = t("details.none", "暂无映射记录");
     mappingList.appendChild(li);
   } else {
     mappingLines.forEach((line) => {
@@ -268,7 +282,7 @@ async function runTest() {
     publicIp: primary ? primary.ip : "-",
     publicPort: primary ? primary.port : "-",
     localIp: primary ? `${primary.raddr || "-"}:${primary.rport || "-"}` : "-",
-    ipv6State: ipv6Detected ? "检测到" : "未检测到",
+    ipv6State: ipv6Detected ? t("ipv6.detected_short", "检测到") : t("ipv6.not_detected", "未检测到"),
     duration: `${duration}s`,
   });
 
@@ -276,14 +290,14 @@ async function runTest() {
   copyBtn.onclick = async () => {
     try {
       await navigator.clipboard.writeText(resultsText);
-      setStatus("已复制结果");
+      setStatus(t("status.copied", "已复制结果"));
     } catch (error) {
       console.error(error);
-      setStatus("复制失败，请手动选择");
+      setStatus(t("status.copy_failed", "复制失败，请手动选择"));
     }
   };
 
-  setStatus("检测完成");
+  setStatus(t("status.done", "检测完成"));
   retestBtn.disabled = false;
   startBtn.disabled = false;
 }

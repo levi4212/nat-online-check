@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NAT 在线检测 · 无服务器版</title>
-  <meta name="description" content="基于 WebRTC + STUN 的 NAT 在线检测，零后端、纯前端运行。" />
+  <title data-i18n="meta.title">NAT 在线检测 · 无服务器版</title>
+  <meta name="description" content="基于 WebRTC + STUN 的 NAT 在线检测，零后端、纯前端运行。" data-i18n-content="meta.description" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" />
@@ -16,129 +16,147 @@
   <header class="site-header">
     <div class="logo">NAT·Lab</div>
     <nav class="nav">
-      <a href="#test">检测</a>
-      <a href="#types">类型说明</a>
-      <a href="nat-guide.html">改善 NAT</a>
-      <a href="#faq">FAQ</a>
-      <a href="/en/index.html">EN</a>
+      <a href="#test" data-i18n="nav.test">检测</a>
+      <a href="#types" data-i18n="nav.types">类型说明</a>
+      <a href="nat-guide.html" data-i18n="nav.improve">改善 NAT</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <label class="lang-label" for="langSelect" data-i18n="nav.lang">语言</label>
+      <select id="langSelect" class="lang-select" aria-label="Language">
+        <option value="en">English</option>
+        <option value="zh-CN">简体中文</option>
+        <option value="zh-TW">繁體中文</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="pt-BR">Português (BR)</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+        <option value="hi">हिन्दी</option>
+        <option value="id">Bahasa Indonesia</option>
+        <option value="th">ไทย</option>
+        <option value="tr">Türkçe</option>
+        <option value="vi">Tiếng Việt</option>
+      </select>
     </nav>
   </header>
 
   <main>
     <section class="hero" id="test">
       <div class="hero-copy">
-        <p class="badge">纯前端 · 无服务器</p>
-        <h1>一键识别你的 NAT 类型</h1>
-        <p class="subtitle">
+        <p class="badge" data-i18n="hero.badge">纯前端 · 无服务器</p>
+        <h1 data-i18n="hero.title">一键识别你的 NAT 类型</h1>
+        <p class="subtitle" data-i18n="hero.subtitle">
           基于浏览器 WebRTC 与 STUN 协议，分析公网映射与端口一致性。
           不上传个人信息，检测在本地完成。
         </p>
         <div class="cta-row">
-          <button id="startBtn" class="cta">开始检测</button>
-          <button id="retestBtn" class="ghost" disabled>重新检测</button>
+          <button id="startBtn" class="cta" data-i18n="hero.start">开始检测</button>
+          <button id="retestBtn" class="ghost" disabled data-i18n="hero.retest">重新检测</button>
         </div>
-        <div class="hint" id="statusHint">准备就绪</div>
+        <div class="hint" id="statusHint" data-i18n="status.ready">准备就绪</div>
       </div>
       <div class="hero-card">
-        <div class="card-title">检测摘要</div>
+        <div class="card-title" data-i18n="summary.title">检测摘要</div>
         <div class="result-row">
-          <div class="result-label">NAT 类型</div>
+          <div class="result-label" data-i18n="summary.nat">NAT 类型</div>
           <div id="natType" class="result-value">-</div>
         </div>
         <div class="result-row">
-          <div class="result-label">公网 IP</div>
+          <div class="result-label" data-i18n="summary.public_ip">公网 IP</div>
           <div id="publicIp" class="result-value">-</div>
         </div>
         <div class="result-row">
-          <div class="result-label">公网端口</div>
+          <div class="result-label" data-i18n="summary.public_port">公网端口</div>
           <div id="publicPort" class="result-value">-</div>
         </div>
         <div class="result-row">
-          <div class="result-label">内网 IP</div>
+          <div class="result-label" data-i18n="summary.local_ip">内网 IP</div>
           <div id="localIp" class="result-value">-</div>
         </div>
         <div class="result-row">
-          <div class="result-label">IPv6</div>
+          <div class="result-label" data-i18n="summary.ipv6">IPv6</div>
           <div id="ipv6State" class="result-value">-</div>
         </div>
         <div class="result-row">
-          <div class="result-label">耗时</div>
+          <div class="result-label" data-i18n="summary.duration">耗时</div>
           <div id="duration" class="result-value">-</div>
         </div>
         <div class="actions">
-          <button id="copyBtn" class="small" disabled>复制结果</button>
+          <button id="copyBtn" class="small" disabled data-i18n="summary.copy">复制结果</button>
         </div>
-        <div class="note" id="precisionNote">结果为浏览器可见范围，部分类型可能无法完全区分。</div>
+        <div class="note" id="precisionNote" data-i18n="summary.note">结果为浏览器可见范围，部分类型可能无法完全区分。</div>
       </div>
     </section>
 
     <section class="panel">
-      <h2>检测细节</h2>
+      <h2 data-i18n="details.title">检测细节</h2>
       <div class="panel-grid">
         <div class="panel-card">
-          <h3>映射信息</h3>
+          <h3 data-i18n="details.mapping">映射信息</h3>
           <ul id="mappingList" class="mono-list">
-            <li>等待检测…</li>
+            <li data-i18n="details.waiting">等待检测…</li>
           </ul>
         </div>
         <div class="panel-card">
-          <h3>STUN 服务器</h3>
+          <h3 data-i18n="details.stun">STUN 服务器</h3>
           <ul id="stunList" class="mono-list"></ul>
         </div>
       </div>
     </section>
 
     <section class="types" id="types">
-      <h2>NAT 类型说明</h2>
+      <h2 data-i18n="types.title">NAT 类型说明</h2>
       <div class="types-grid">
         <article class="type-card">
-          <h3>NAT1 · Full Cone</h3>
-          <p>外部主机可直接访问映射地址，P2P/联机体验最佳。</p>
-          <span class="tag good">极佳</span>
+          <h3 data-i18n="types.nat1.title">NAT1 · Full Cone</h3>
+          <p data-i18n="types.nat1.desc">外部主机可直接访问映射地址，P2P/联机体验最佳。</p>
+          <span class="tag good" data-i18n="types.nat1.tag">极佳</span>
         </article>
         <article class="type-card">
-          <h3>NAT2 · Restricted Cone</h3>
-          <p>需先由内网发起连接，外部主机才能返回。</p>
-          <span class="tag ok">良好</span>
+          <h3 data-i18n="types.nat2.title">NAT2 · Restricted Cone</h3>
+          <p data-i18n="types.nat2.desc">需先由内网发起连接，外部主机才能返回。</p>
+          <span class="tag ok" data-i18n="types.nat2.tag">良好</span>
         </article>
         <article class="type-card">
-          <h3>NAT3 · Port Restricted</h3>
-          <p>限制 IP 与端口，部分 P2P/联机会受限。</p>
-          <span class="tag warn">一般</span>
+          <h3 data-i18n="types.nat3.title">NAT3 · Port Restricted</h3>
+          <p data-i18n="types.nat3.desc">限制 IP 与端口，部分 P2P/联机会受限。</p>
+          <span class="tag warn" data-i18n="types.nat3.tag">一般</span>
         </article>
         <article class="type-card">
-          <h3>NAT4 · Symmetric</h3>
-          <p>不同目标映射不同端口，打洞困难。</p>
-          <span class="tag bad">较差</span>
+          <h3 data-i18n="types.nat4.title">NAT4 · Symmetric</h3>
+          <p data-i18n="types.nat4.desc">不同目标映射不同端口，打洞困难。</p>
+          <span class="tag bad" data-i18n="types.nat4.tag">较差</span>
         </article>
       </div>
-      <p class="types-note">
+      <p class="types-note" data-i18n="types.note">
         纯浏览器检测无法稳定区分 NAT2/NAT3，页面会统一显示为“Cone NAT (NAT2/3)”。
       </p>
     </section>
 
     <section class="panel" id="nat-knowledge">
-      <h2>了解 NAT 行为</h2>
+      <h2 data-i18n="knowledge.title">了解 NAT 行为</h2>
       <div class="panel-grid">
         <div class="panel-card">
-          <h3>为什么 NAT 影响体验</h3>
-          <p>
+          <h3 data-i18n="knowledge.card1.title">为什么 NAT 影响体验</h3>
+          <p data-i18n="knowledge.card1.body">
             带宽和信号强不代表联机就好。NAT 决定了外部连接能否回到你的设备，限制越严格，
             游戏、语音、视频通话等 P2P 场景越容易回退到中继，导致延迟升高与体验下降。
           </p>
         </div>
         <div class="panel-card">
-          <h3>常见限制来自哪里</h3>
+          <h3 data-i18n="knowledge.card2.title">常见限制来自哪里</h3>
           <ul class="mono-list">
-            <li>双重 NAT（光猫+路由器同时做 NAT）</li>
-            <li>UPnP 关闭或不支持</li>
-            <li>运营商级 NAT（CGNAT）</li>
-            <li>过于严格的防火墙策略</li>
+            <li data-i18n="knowledge.card2.item1">双重 NAT（光猫+路由器同时做 NAT）</li>
+            <li data-i18n="knowledge.card2.item2">UPnP 关闭或不支持</li>
+            <li data-i18n="knowledge.card2.item3">运营商级 NAT（CGNAT）</li>
+            <li data-i18n="knowledge.card2.item4">过于严格的防火墙策略</li>
           </ul>
         </div>
         <div class="panel-card">
-          <h3>检测的意义</h3>
-          <p>
+          <h3 data-i18n="knowledge.card3.title">检测的意义</h3>
+          <p data-i18n="knowledge.card3.body">
             识别 NAT 类型可以解释“为何能连上但体验差/为何对部分人无法直连”等问题，
             并帮助你判断是否需要开启 UPnP、端口转发或向运营商申请公网 IP。
           </p>
@@ -147,42 +165,43 @@
     </section>
 
     <section class="faq" id="faq">
-      <h2>常见问题</h2>
+      <h2 data-i18n="faq.title">常见问题</h2>
       <details>
-        <summary>检测会收集我的数据吗？</summary>
-        <p>不会。检测过程在浏览器内完成，仅与公共 STUN 服务器交换映射信息。</p>
+        <summary data-i18n="faq.q1">检测会收集我的数据吗？</summary>
+        <p data-i18n="faq.a1">不会。检测过程在浏览器内完成，仅与公共 STUN 服务器交换映射信息。</p>
       </details>
       <details>
-        <summary>为什么显示“可能是对称 NAT”？</summary>
-        <p>若不同 STUN 服务器返回不同映射端口，通常说明是对称 NAT。</p>
+        <summary data-i18n="faq.q2">为什么显示“可能是对称 NAT”？</summary>
+        <p data-i18n="faq.a2">若不同 STUN 服务器返回不同映射端口，通常说明是对称 NAT。</p>
       </details>
       <details>
-        <summary>如何改善 NAT 类型？</summary>
-        <p>可尝试开启 UPnP、设置端口转发或申请公网 IP。多级路由会显著恶化 NAT 类型。</p>
+        <summary data-i18n="faq.q3">如何改善 NAT 类型？</summary>
+        <p data-i18n="faq.a3">可尝试开启 UPnP、设置端口转发或申请公网 IP。多级路由会显著恶化 NAT 类型。</p>
       </details>
     </section>
   </main>
 
   <footer class="site-footer">
     <p>
-      Powered by WebRTC + STUN · 无服务器部署
+      <span data-i18n="footer.powered">Powered by WebRTC + STUN · 无服务器部署</span>
       <span>·</span>
-      <a href="privacy.html">隐私政策</a>
+      <a href="privacy.html" data-i18n="footer.privacy">隐私政策</a>
       <span>·</span>
-      <a href="terms.html">服务条款</a>
+      <a href="terms.html" data-i18n="footer.terms">服务条款</a>
       <span>·</span>
-      <a href="contact.html">联系</a>
+      <a href="contact.html" data-i18n="footer.contact">联系</a>
     </p>
   </footer>
 
   <div id="consentBanner" class="consent-banner" hidden>
-    <p>提示：如启用广告或统计服务，可能需要你的同意并使用第三方 Cookie。你可先阅读隐私政策。</p>
+    <p data-i18n="consent.text">提示：如启用广告或统计服务，可能需要你的同意并使用第三方 Cookie。你可先阅读隐私政策。</p>
     <div class="consent-actions">
-      <button id="consentAccept" class="consent-btn">我已知晓</button>
-      <button id="consentRead" class="consent-link">查看隐私政策</button>
+      <button id="consentAccept" class="consent-btn" data-i18n="consent.accept">我已知晓</button>
+      <button id="consentRead" class="consent-link" data-i18n="consent.read">查看隐私政策</button>
     </div>
   </div>
 
+  <script src="/i18n.js"></script>
   <script src="/app.js"></script>
 </body>
 </html>
