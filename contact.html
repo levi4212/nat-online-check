@@ -21,11 +21,11 @@
     <p>如需反馈问题、商务合作或隐私相关咨询，请通过以下方式联系：</p>
 
     <ul class="legal-list">
-      <li>邮箱：support@example.com</li>
+      <li>邮箱：<span id="contactEmail">support@example.com</span></li>
       <li>反馈主题建议：NAT 检测反馈 / 广告合规 / 功能建议</li>
     </ul>
 
-    <p class="legal-note">提示：请将邮箱替换为你的实际联系方式。</p>
+    <p class="legal-note" id="contactNote">提示：请将邮箱替换为你的实际联系方式。</p>
   </main>
 
   <footer class="site-footer">
@@ -35,5 +35,11 @@
     <span>·</span>
     <a href="terms.html">服务条款</a>
   </footer>
+
+  <script src="config.js"></script>
+  <script>
+    const config = window.NATLAB_CONFIG || {};
+    if (config.contactEmail) {
+      document.getElementById(\"contactEmail\").textContent = config.contactEmail;\n    }\n    if (config.contactNote) {\n      document.getElementById(\"contactNote\").textContent = config.contactNote;\n    }\n  </script>
 </body>
 </html>
