@@ -116,6 +116,35 @@
       </p>
     </section>
 
+    <section class="panel" id="nat-knowledge">
+      <h2>了解 NAT 行为</h2>
+      <div class="panel-grid">
+        <div class="panel-card">
+          <h3>为什么 NAT 影响体验</h3>
+          <p>
+            带宽和信号强不代表联机就好。NAT 决定了外部连接能否回到你的设备，限制越严格，
+            游戏、语音、视频通话等 P2P 场景越容易回退到中继，导致延迟升高与体验下降。
+          </p>
+        </div>
+        <div class="panel-card">
+          <h3>常见限制来自哪里</h3>
+          <ul class="mono-list">
+            <li>双重 NAT（光猫+路由器同时做 NAT）</li>
+            <li>UPnP 关闭或不支持</li>
+            <li>运营商级 NAT（CGNAT）</li>
+            <li>过于严格的防火墙策略</li>
+          </ul>
+        </div>
+        <div class="panel-card">
+          <h3>检测的意义</h3>
+          <p>
+            识别 NAT 类型可以解释“为何能连上但体验差/为何对部分人无法直连”等问题，
+            并帮助你判断是否需要开启 UPnP、端口转发或向运营商申请公网 IP。
+          </p>
+        </div>
+      </div>
+    </section>
+
     <section class="faq" id="faq">
       <h2>常见问题</h2>
       <details>
