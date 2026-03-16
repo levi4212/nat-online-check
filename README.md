@@ -21,8 +21,8 @@ python3 -m http.server 8080
 ## Cloudflare Pages 部署
 
 1. 新建 Pages 项目并连接 GitHub 仓库。
-2. Build command 留空，Build output directory 设为 `/`。
-3. 部署完成后使用 Cloudflare 分配的域名访问。
+2. Build command 填 `npm run build`，Build output directory 设为 `/`。
+3. 在 Pages 的环境变量中设置：\n+   - `CONTACT_EMAIL`（例如 `support@levifree.qzz.io`）\n+   - `CONTACT_NOTE`（可选）\n+4. 部署完成后使用 Cloudflare 分配的域名访问。
 
 ## 说明
 
@@ -32,6 +32,11 @@ python3 -m http.server 8080
 
 ## 部署后自定义联系方式
 
+### Cloudflare Pages
+1. 在 Pages 的环境变量中设置 `CONTACT_EMAIL` 与 `CONTACT_NOTE`。
+2. 重新部署后会自动生成 `config.js` 并生效。
+
+### 其他静态托管
 1. 将 `config.example.js` 复制为 `config.js`。
 2. 修改其中的 `contactEmail` 与 `contactNote`。
 3. `config.js` 已加入 `.gitignore`，避免泄露个人信息。
