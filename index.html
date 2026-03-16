@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NAT 在线检测 · 无服务器版</title>
+  <meta name="description" content="基于 WebRTC + STUN 的 NAT 在线检测，零后端、纯前端运行。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="logo">NAT·Lab</div>
+    <nav class="nav">
+      <a href="#test">检测</a>
+      <a href="#types">类型说明</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="test">
+      <div class="hero-copy">
+        <p class="badge">纯前端 · 无服务器</p>
+        <h1>一键识别你的 NAT 类型</h1>
+        <p class="subtitle">
+          基于浏览器 WebRTC 与 STUN 协议，分析公网映射与端口一致性。
+          不上传个人信息，检测在本地完成。
+        </p>
+        <div class="cta-row">
+          <button id="startBtn" class="cta">开始检测</button>
+          <button id="retestBtn" class="ghost" disabled>重新检测</button>
+        </div>
+        <div class="hint" id="statusHint">准备就绪</div>
+      </div>
+      <div class="hero-card">
+        <div class="card-title">检测摘要</div>
+        <div class="result-row">
+          <div class="result-label">NAT 类型</div>
+          <div id="natType" class="result-value">-</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">公网 IP</div>
+          <div id="publicIp" class="result-value">-</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">公网端口</div>
+          <div id="publicPort" class="result-value">-</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">内网 IP</div>
+          <div id="localIp" class="result-value">-</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">IPv6</div>
+          <div id="ipv6State" class="result-value">-</div>
+        </div>
+        <div class="result-row">
+          <div class="result-label">耗时</div>
+          <div id="duration" class="result-value">-</div>
+        </div>
+        <div class="actions">
+          <button id="copyBtn" class="small" disabled>复制结果</button>
+        </div>
+        <div class="note" id="precisionNote">结果为浏览器可见范围，部分类型可能无法完全区分。</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>检测细节</h2>
+      <div class="panel-grid">
+        <div class="panel-card">
+          <h3>映射信息</h3>
+          <ul id="mappingList" class="mono-list">
+            <li>等待检测…</li>
+          </ul>
+        </div>
+        <div class="panel-card">
+          <h3>STUN 服务器</h3>
+          <ul id="stunList" class="mono-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="types" id="types">
+      <h2>NAT 类型说明</h2>
+      <div class="types-grid">
+        <article class="type-card">
+          <h3>NAT1 · Full Cone</h3>
+          <p>外部主机可直接访问映射地址，P2P/联机体验最佳。</p>
+          <span class="tag good">极佳</span>
+        </article>
+        <article class="type-card">
+          <h3>NAT2 · Restricted Cone</h3>
+          <p>需先由内网发起连接，外部主机才能返回。</p>
+          <span class="tag ok">良好</span>
+        </article>
+        <article class="type-card">
+          <h3>NAT3 · Port Restricted</h3>
+          <p>限制 IP 与端口，部分 P2P/联机会受限。</p>
+          <span class="tag warn">一般</span>
+        </article>
+        <article class="type-card">
+          <h3>NAT4 · Symmetric</h3>
+          <p>不同目标映射不同端口，打洞困难。</p>
+          <span class="tag bad">较差</span>
+        </article>
+      </div>
+      <p class="types-note">
+        纯浏览器检测无法稳定区分 NAT2/NAT3，页面会统一显示为“Cone NAT (NAT2/3)”。
+      </p>
+    </section>
+
+    <section class="faq" id="faq">
+      <h2>常见问题</h2>
+      <details>
+        <summary>检测会收集我的数据吗？</summary>
+        <p>不会。检测过程在浏览器内完成，仅与公共 STUN 服务器交换映射信息。</p>
+      </details>
+      <details>
+        <summary>为什么显示“可能是对称 NAT”？</summary>
+        <p>若不同 STUN 服务器返回不同映射端口，通常说明是对称 NAT。</p>
+      </details>
+      <details>
+        <summary>如何改善 NAT 类型？</summary>
+        <p>可尝试开启 UPnP、设置端口转发或申请公网 IP。多级路由会显著恶化 NAT 类型。</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Powered by WebRTC + STUN · 无服务器部署</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
