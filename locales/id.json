@@ -60,7 +60,7 @@
   "faq.title": "FAQ",
   "faq.q1": "Apakah data saya dikumpulkan?",
   "faq.a1": "Tidak. Tes berjalan di browser dan hanya menghubungi STUN publik.",
-  "faq.q2": "Mengapa "mungkin NAT simetris"?",
+  "faq.q2": "Mengapa \"mungkin NAT simetris\"?",
   "faq.a2": "Jika STUN berbeda memberi port berbeda, kemungkinan NAT simetris.",
   "faq.q3": "Bagaimana memperbaiki NAT?",
   "faq.a3": "Coba UPnP, port forwarding, atau minta IP publik. Banyak router memperburuk NAT.",

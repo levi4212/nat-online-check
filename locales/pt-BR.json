@@ -60,7 +60,7 @@
   "faq.title": "FAQ",
   "faq.q1": "Vocês coletam meus dados?",
   "faq.a1": "Não. O teste roda no navegador e só acessa STUN públicos.",
-  "faq.q2": "Por que "possível NAT simétrico"?",
+  "faq.q2": "Por que \"possível NAT simétrico\"?",
   "faq.a2": "Se STUNs diferentes retornam portas diferentes, o NAT simétrico é provável.",
   "faq.q3": "Como melhorar meu NAT?",
   "faq.a3": "Tente UPnP, encaminhamento de portas ou IP público. Múltiplos roteadores pioram o NAT.",
