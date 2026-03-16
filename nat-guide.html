@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>如何改善 NAT 类型 · NAT 在线检测</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="logo">NAT·Lab</div>
+    <nav class="nav">
+      <a href="index.html">返回检测</a>
+      <a href="#checklist">快速清单</a>
+      <a href="#steps">实施步骤</a>
+    </nav>
+  </header>
+
+  <main class="legal">
+    <h1>如何改善 NAT 类型</h1>
+    <p>以下方法按效果由强到弱排序。不同网络环境结果不同，请结合自身情况逐步尝试。</p>
+
+    <h2 id="checklist">快速清单</h2>
+    <ul class="legal-list">
+      <li>确保只有一层路由（避免“双重 NAT”）。</li>
+      <li>开启路由器 UPnP（对游戏与 P2P 通常有改善）。</li>
+      <li>为主机设置端口转发或 DMZ（谨慎使用）。</li>
+      <li>将光猫改为桥接模式，让路由器直接拨号。</li>
+      <li>向运营商申请公网 IPv4 或启用 IPv6。</li>
+      <li>避免 CGNAT（运营商级 NAT）。</li>
+    </ul>
+
+    <h2 id="steps">实施步骤（建议顺序）</h2>
+    <h3>1. 排查是否双重 NAT</h3>
+    <p>如果你的光猫和路由器都在做 NAT，基本很难获得理想的 NAT 类型。优先考虑将光猫切换到桥接模式。</p>
+
+    <h3>2. 开启 UPnP</h3>
+    <p>UPnP 能让设备自动申请端口映射，是家庭网络最省心的改善方式。启用后重新检测。</p>
+
+    <h3>3. 手动端口转发</h3>
+    <p>对特定游戏或应用，可在路由器中设置端口转发。确保你的设备固定内网 IP。</p>
+
+    <h3>4. 使用 DMZ（谨慎）</h3>
+    <p>DMZ 会把所有端口映射到一台设备，能显著改善连通性，但安全风险更高。</p>
+
+    <h3>5. 申请公网 IP / IPv6</h3>
+    <p>若处于 CGNAT 环境，需要联系运营商申请公网 IPv4。若条件允许，开启 IPv6 也可改善连通性。</p>
+
+    <h3>6. 设备与网络优化</h3>
+    <p>升级路由器固件、关闭不必要的 QoS 或防火墙规则，有时也能改善 NAT 结果。</p>
+
+    <h2>注意事项</h2>
+    <ul class="legal-list">
+      <li>不同地区、不同运营商策略差异较大，结果以实际检测为准。</li>
+      <li>对称 NAT（NAT4）一般最难改善，需要运营商配合。</li>
+    </ul>
+  </main>
+
+  <footer class="site-footer">
+    <a href="index.html">返回检测</a>
+    <span>·</span>
+    <a href="privacy.html">隐私政策</a>
+    <span>·</span>
+    <a href="terms.html">服务条款</a>
+    <span>·</span>
+    <a href="contact.html">联系</a>
+  </footer>
+</body>
+</html>

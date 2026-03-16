@@ -11,6 +11,9 @@ const durationEl = document.getElementById("duration");
 const mappingList = document.getElementById("mappingList");
 const stunList = document.getElementById("stunList");
 const precisionNote = document.getElementById("precisionNote");
+const consentBanner = document.getElementById("consentBanner");
+const consentAccept = document.getElementById("consentAccept");
+const consentRead = document.getElementById("consentRead");
 
 const STUN_SERVERS = [
   "stun:stun.l.google.com:19302",
@@ -30,6 +33,23 @@ function renderStunList() {
 }
 
 renderStunList();
+
+if (consentBanner && consentAccept && consentRead) {
+  const consentKey = "natlab-consent-ack";
+  const acknowledged = localStorage.getItem(consentKey);
+  if (!acknowledged) {
+    consentBanner.hidden = false;
+  }
+
+  consentAccept.addEventListener("click", () => {
+    localStorage.setItem(consentKey, "1");
+    consentBanner.hidden = true;
+  });
+
+  consentRead.addEventListener("click", () => {
+    window.location.href = "privacy.html";
+  });
+}
 
 function setStatus(text) {
   statusHint.textContent = text;

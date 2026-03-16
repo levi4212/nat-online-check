@@ -18,6 +18,7 @@
     <nav class="nav">
       <a href="#test">检测</a>
       <a href="#types">类型说明</a>
+      <a href="nat-guide.html">改善 NAT</a>
       <a href="#faq">FAQ</a>
     </nav>
   </header>
@@ -133,8 +134,24 @@
   </main>
 
   <footer class="site-footer">
-    <p>Powered by WebRTC + STUN · 无服务器部署</p>
+    <p>
+      Powered by WebRTC + STUN · 无服务器部署
+      <span>·</span>
+      <a href="privacy.html">隐私政策</a>
+      <span>·</span>
+      <a href="terms.html">服务条款</a>
+      <span>·</span>
+      <a href="contact.html">联系</a>
+    </p>
   </footer>
+
+  <div id="consentBanner" class="consent-banner" hidden>
+    <p>提示：如启用广告或统计服务，可能需要你的同意并使用第三方 Cookie。你可先阅读隐私政策。</p>
+    <div class="consent-actions">
+      <button id="consentAccept" class="consent-btn">我已知晓</button>
+      <button id="consentRead" class="consent-link">查看隐私政策</button>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>
